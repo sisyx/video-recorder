@@ -1,18 +1,11 @@
-const vrecord = document.querySelector(".video-record-btn");
-const vpause = document.querySelector(".video-pause-btn");
-const videoElm = document.querySelector(".video-element");
-const finalVideoContainer = document.querySelector(".recorder-video-container");
-const finalVideo = document.querySelector(".final-video");
-const finalVideoUploadBtn = document.querySelector(".final-video-upload-btn");
-const finalVideoDeleteBtn = document.querySelector(".final-video-delete-btn");
 
 window.onload = async function () {
-    const videoStream = await navigator.mediaDevices.getUserMedia({
+    videoStream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false,
     })
 
-    const videoRecord = await navigator.mediaDevices.getUserMedia({
+    videoRecord = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
     })
@@ -20,7 +13,7 @@ window.onload = async function () {
     videoElm.srcObject = videoStream
 
     vrecord.addEventListener('click', () => {
-        var mediaRecorder = new MediaRecorder(videoRecord);
+        mediaRecorder = new MediaRecorder(videoRecord);
 
         let blob = [];
     
@@ -38,6 +31,8 @@ window.onload = async function () {
                 hideFinalVideo();
             })
 
+            finalVideoUploadBtn.addEventListener('click', () => handleUploadVideo(new Blob(blob)))
+
         })
     
         mediaRecorder.start();
@@ -50,6 +45,7 @@ window.onload = async function () {
 
         disabelRecord();
     })
+
 
 }
 
@@ -67,4 +63,45 @@ function showFinalVideo() {
 
 function hideFinalVideo() {
     finalVideoContainer.classList.add('inactive');
+}
+
+function handleUploadVideo(blob) {
+    // const blob = new Blob(chunks, { type: 'video/webm'})
+    const formData = new FormData();
+    formData.append('videoFile', blob, 'recorded_video.webm');
+
+    fetch("/upload/video", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.status == 200) {
+            console.log("Video uploaded successfully :)");
+        } else {
+            console.error("Video Failed toupload \nMore data:", response);
+        }
+    })
+    .catch(error => {
+        console.error("Error uploading Video: ", error);
+    })
+}
+
+
+async function stopCamera() {
+    if (videoStream) {
+        const tracks = videoStream.getTracks();
+        tracks.forEach(track => track.stop())
+        console.log("camera stoped");
+    } else {
+        console.log("camera didn't stop");
+    }
+}
+
+async function startCamera() {
+    videoStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false,
+    });
+
+    videoElm.srcObject = videoStream;
 }

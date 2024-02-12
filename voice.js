@@ -1,9 +1,3 @@
-// Set up basic variables for app
-const record = document.querySelector(".record");
-const stop = document.querySelector(".stop");
-const soundClips = document.querySelector(".sound-clips");
-const canvas = document.querySelector(".visualizer");
-const mainSection = document.querySelector(".main-controls");
 
 // Disable stop button while not recording
 
@@ -51,6 +45,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
       disableRecord();
       enableStop();
+      stop.classList.add("recording-btn")
     };
 
     stop.onclick = function () {
@@ -60,8 +55,9 @@ if (navigator.mediaDevices.getUserMedia) {
       record.style.background = "";
       record.style.color = "";
 
+      record.classList.remove("inactive");
+      stop.classList.remove("recording-btn");
       disableStop();
-      enableRecord();
     };
 
     mediaRecorder.onstop = function (e) {
@@ -75,12 +71,17 @@ if (navigator.mediaDevices.getUserMedia) {
       const clipContainer = document.createElement("div");
       const clipLabel = document.createElement("p");
       const audio = document.createElement("audio");
-      const deleteButton = document.createElement("button");
       const infoContainer = document.createElement("div");
+      const buttonsContainer = document.createElement('div');
+      const uploadButton = document.createElement("button");
+      const deleteButton = document.createElement("button");
       
       clipContainer.classList.add("voice-clip");
       infoContainer.classList.add('voice-clip-info_container')
       audio.setAttribute("controls", "");
+      buttonsContainer.className = "voice-clip-buttons";
+      uploadButton.textContent = "Upload";
+      uploadButton.className = "voice-upload-btn btn"
       deleteButton.textContent = "Delete";
       deleteButton.className = "voice-delete-btn btn";
 
@@ -90,8 +91,10 @@ if (navigator.mediaDevices.getUserMedia) {
         clipLabel.textContent = clipName;
       }
 
+      buttonsContainer.appendChild(uploadButton);
+      buttonsContainer.appendChild(deleteButton);
       infoContainer.appendChild(clipLabel);
-      infoContainer.appendChild(deleteButton);
+      infoContainer.appendChild(buttonsContainer);
       clipContainer.appendChild(infoContainer);
       clipContainer.appendChild(audio);
       soundClips.appendChild(clipContainer);
@@ -99,13 +102,15 @@ if (navigator.mediaDevices.getUserMedia) {
       audio.controls = true;
       const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
       chunks = [];
+      console.log("recorder stopped");
       const audioURL = window.URL.createObjectURL(blob);
       audio.src = audioURL;
-      console.log("recorder stopped");
-
+      
       deleteButton.onclick = function (e) {
-        e.target.closest(".clip").remove();
+        e.target.closest(".voice-clip").remove();
       };
+
+      uploadButton.onclick = () => handleUploadVoice(blob, clipName)
 
       clipLabel.onclick = function () {
         const existingName = clipLabel.textContent;
@@ -156,11 +161,11 @@ function visualize(stream) {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    canvasCtx.fillStyle = "rgb(200, 200, 200)";
+    canvasCtx.fillStyle = "rgb(0, 0, 0)";
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+    canvasCtx.strokeStyle = "rgb(250, 250, 250)";
 
     canvasCtx.beginPath();
 
@@ -185,8 +190,26 @@ function visualize(stream) {
   }
 }
 
-window.onresize = function () {
+function updateCanvaSize() {
   canvas.width = mainSection.offsetWidth;
-};
+}
+window.onresize = updateCanvaSize;
 
-window.onresize();
+// document.onload = updateCanvaSize
+
+function handleUploadVoice(blob, name) {
+  const formData = new FormData();
+  formData.append('audioFile', blob, name);
+
+  fetch("/upload/voice", {
+      method: "POST",
+      body: formData
+  })
+  .then(response => {
+      console.log("Voice uploaded successfully :)");
+      console.log("More data:", response                                    );
+  })
+  .catch(error => {
+      console.error("Error uploading Video: ", error);
+  })
+}

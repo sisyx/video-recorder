@@ -54,8 +54,17 @@ main {
     border-color: black;
 }
 
+.btn.recording-btn {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
 
 /* Voice */
+canva {
+    border: 1px black solid;
+}
 .voice-record-button {
     width: 7ch;
     --fg: black;
@@ -90,7 +99,10 @@ main {
     align-items: center;
     justify-content: space-between;
 }
-
+.voice-clip-buttons {
+    display: flex;
+    gap: 5px;
+}
 
 
 /* video */
