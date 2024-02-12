@@ -22,9 +22,22 @@
         
         <main>
             <div class="video-records">
-                <video class="video-element" width="1600px" height="900px" autoplay></video>
-                <button class="video-record-btn btn">record</button>
-                <button class="video-pause-btn btn">Pause</button>
+                <div class="video-stream-container recording">
+                    <video class="video-element" autoplay></video>
+                    <div class="video-stream-controls">
+                        <button class="video-record-btn btn">Record</button>
+                        <button class="video-pause-btn btn">Pause</button>
+                    </div>
+                </div>
+
+
+                <div class="recorder-video-container inactive">
+                    <video controls class="final-video"></video>
+                    <div class="recorder-video-buttons">
+                        <button class="final-video-upload-btn btn">upload</button>
+                        <button class="final-video-delete-btn btn">delete</button>
+                    </div>
+                </div>
             </div>
             
             <div class="voice-records inactive">

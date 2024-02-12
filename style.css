@@ -90,3 +90,12 @@ main {
     align-items: center;
     justify-content: space-between;
 }
+
+
+
+/* video */
+
+video {
+    width: 100%;
+    aspect-ratio: 16/9;
+}
