@@ -1,0 +1,92 @@
+.header-outer {
+    box-shadow: 0 5px 5px black;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.header {
+    padding-block: 20px;
+}
+.header-inner {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+    max-width: 800px;
+}
+.header-option {
+    cursor: default;
+}
+.header-option.active {
+    --fg: white;
+    --bg: black;
+    border-color: black;
+}
+
+
+
+/* general */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.inactive {
+    display: none;
+}
+
+.btn {
+    --fg: black;
+    --bg: white;
+    color: var(--fg);
+    background-color: var(--bg);
+    border: 1px var(--fg) solid;
+    border-radius: 8px;
+    padding-inline: 5px;
+    padding-block: 3px;
+}
+.btn:hover {
+    --fg: white;
+    --bg: black;
+    border-color: black;
+}
+
+
+/* Voice */
+.voice-record-button {
+    width: 7ch;
+    --fg: black;
+    --bg: white;
+    color: var(--fg);
+    background-color: var(--bg);
+    border: 1px var(--fg) solid;
+    border-radius: 8px;
+    padding-inline: 5px;
+    padding-block: 3px;
+}
+.voice-record-button:hover {
+    --fg: white;
+    --bg: black;
+    border-color: black;
+}
+.voice-clips {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    margin-top: 20px;
+}
+.voice-clip {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.voice-clip-info_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Web dictaphone</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+    <div class="container">
+
+        <div class="header-outer">
+            <div class="header">
+                <div class="header-inner">
+                    <div class="header-option btn active" onclick="handleHeaderVideoClick(event)">Video Recorder</div>
+                    <div class="header-option btn" onclick="handleHeaderVoiceClick(event)">Voice Recorder</div>
+                    <div class="header-option btn" onclick="handleHeaderUploadClick(event)">Upload</div>
+                </div>
+            </div>
+        </div>
+        
+        <main>
+            <div class="video-records">
+                <video class="video-element" width="1600px" height="900px" autoplay></video>
+                <button class="video-record-btn btn">record</button>
+                <button class="video-pause-btn btn">Pause</button>
+            </div>
+            
+            <div class="voice-records inactive">
+                <section class="main-controls">
+                    <canvas class="visualizer" height="60px"></canvas>
+                    <div id="buttons">
+                        <button class="record voice-record-button btn">Record</button>
+                        <button class="stop voice-record-button btn">Stop</button>
+                    </div>
+                </section>
+                <section class="sound-clips"></section>
+            </div>
+            
+            
+            <div class="upload-records inactive">
+                Voice
+            </div>
+        </main>
+
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="voice.js"></script>
+    <script src="video.js"></script>
+        
+    </body>
+    </html>
