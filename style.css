@@ -58,6 +58,56 @@ main {
     background-color: red;
     color: white;
     border-color: red;
+    animation: recording 2s infinite;
+}
+@keyframes recording {
+    0%, 100% {
+        background-color: red;
+        color: white;
+        border-color: red;
+    }
+    50% {
+        background-color: white;
+        color: red;
+        border-color: red;
+    }
+}
+
+
+/* starting popup */
+.first-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px lightgray;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90vw;
+    max-width: 400px;
+    aspect-ratio: 16/9;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-right: 1px lightgray solid;
+    border-top: 1px lightgray solid;
+}
+.first-popup.inactive {
+    display: none;
+}
+.first-popup .btn {
+    border-color: red;
+    color: red;
+    cursor: default;
+}
+.first-popup .btn:hover {
+    background-color: red;
+    color: white;
 }
 
 

@@ -1,6 +1,10 @@
 // general scripts
 // like: "header fucntions", "elements visiablity", etc
 
+// global vars
+const startBtn = document.querySelector(".first-popup .btn");
+const startingPopup = document.querySelector('.first-popup')
+
 // video vars
 const vrecord = document.querySelector(".video-record-btn");
 const vpause = document.querySelector(".video-pause-btn");
@@ -42,6 +46,10 @@ function handleHeaderVoiceClick(event) {
 }
 
 function handleHeaderVideoClick(event) {
+    showVideoPart();
+}
+
+function showVideoPart() {
     startCamera()
     const activeBtn = document.querySelector(".active");
 
@@ -51,5 +59,5 @@ function handleHeaderVideoClick(event) {
 
     // change header's active button
     activeBtn.classList.remove("active");
-    event.target.classList.add('active')
+    event.target.classList.add('active');
 }

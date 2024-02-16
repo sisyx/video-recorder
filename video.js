@@ -1,5 +1,8 @@
 
-window.onload = async function () {
+startBtn.onclick = async function () {
+    startingPopup.classList.add("inactive");
+    console.log(startingPopup.classList);
+    showVideoPart();
     videoStream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: false,
@@ -13,6 +16,7 @@ window.onload = async function () {
     videoElm.srcObject = videoStream
 
     vrecord.addEventListener('click', () => {
+        vrecord.classList.add("recording-btn")
         mediaRecorder = new MediaRecorder(videoRecord);
 
         let blob = [];
@@ -22,11 +26,11 @@ window.onload = async function () {
         })
     
         mediaRecorder.addEventListener('stop', (event) => {
-            const videoLocal = URL.createObjectURL(new Blob(blob));
+            let videoLocal = URL.createObjectURL(new Blob(blob));
             finalVideo.src = videoLocal;
 
             finalVideoDeleteBtn.addEventListener("click", () => {
-                delete videoLocal;
+                videoLocal = "";
                 finalVideo.src = "";
                 hideFinalVideo();
             })
@@ -39,22 +43,24 @@ window.onload = async function () {
         
         vpause.addEventListener('click', () => {
             mediaRecorder.stop()
-            enableRecord();
+            enableVRecord();
             showFinalVideo();
         })
 
-        disabelRecord();
+        disabelVRecord();
     })
 
 
 }
 
-function disabelRecord() {
+function disabelVRecord() {
     vrecord.disabled = true;
+    vrecord.classList.add("recording-btn");
 }
 
-function enableRecord() {
+function enableVRecord() {
     vrecord.disabled = false;
+    vrecord.classList.remove("recording-btn");
 }
 
 function showFinalVideo() {
