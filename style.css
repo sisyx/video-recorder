@@ -47,11 +47,18 @@ main {
     border-radius: 8px;
     padding-inline: 5px;
     padding-block: 3px;
+    text-decoration: none;
 }
 .btn:hover {
     --fg: white;
     --bg: black;
     border-color: black;
+}
+.btn:disabled:hover,
+.btn:disabled {
+    background-color: #0000;
+    --fg: black;
+    opacity: 0.7;
 }
 
 .btn.recording-btn {

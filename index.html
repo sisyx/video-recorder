@@ -27,21 +27,22 @@
             </div>
 
             <div class="video-records inactive">
-                <div class="video-stream-container recording">
-                    <video class="video-element" autoplay></video>
-                    <div class="video-stream-controls">
-                        <button class="video-record-btn btn">Record</button>
-                        <button class="video-pause-btn btn">Pause</button>
+                <div>
+                    <!-- <h1>Media Recorder API Demo</h1>
+                    <p><small>Made by the <a href="https://addpipe.com">Pipe Recording Platform</a></small></p>
+                    <p>The demo below uses the <strong>Media​Stream Recording API</strong> and <strong>getUserMedia()</strong> to record a 1280x720 video file. For more info check out our article: <a title="Media Recorder API in Action on Chrome and Firefox" target="_blank" href="https://blog.addpipe.com/mediarecorder-api/">Media Recorder API in Action on Chrome and Firefox</a>.</h2> -->
+                    <div>
+                        <video id="live" controls autoplay playsinline muted></video> 
+                        <div id="controls">
+                            <button class="btn" id="rec" onclick="onBtnRecordClicked()">Record</button>
+                            <button class="btn" id="pauseRes"   onclick="onPauseResumeClicked()" disabled>Pause</button>
+                            <button class="btn" id="stop"  onclick="onBtnStopClicked()" disabled>Stop</button>
+                            <button class="btn" id="stateButton" onclick="onStateClicked()">trace state</button>
+                        </div>
+                        <video id="playback" controls autoplay></video><br>
                     </div>
-                </div>
-
-
-                <div class="recorder-video-container inactive">
-                    <video controls class="final-video"></video>
-                    <div class="recorder-video-buttons">
-                        <button class="final-video-upload-btn btn">upload</button>
-                        <button class="final-video-delete-btn btn">delete</button>
-                    </div>
+                    <a class="btn" id="downloadLink" download="mediarecorder.webm" name="mediarecorder.webm" href>Download</a>
+                    <button class="video-upload-btn btn inactive">upload</button>
                 </div>
             </div>
             
@@ -54,11 +55,6 @@
                     </div>
                 </section>
                 <section class="sound-clips"></section>
-            </div>
-            
-            
-            <div class="upload-records inactive">
-                Voice
             </div>
         </main>
 
